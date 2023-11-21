@@ -18,6 +18,7 @@ In the above we can see that there are different files presented, here we have a
  
  step 3 : we need to create a database named TODO and then use connect option MongoDB for VS Code, this will provide a link like this
  'mongodb+srv://username:passwd@cluster0.pobbk4f.mongodb.net/TODO'
+![image](https://github.com/why-akshat/ToDo-List/assets/133604979/b700a596-be83-407e-8ddd-eb95254d7c3b)
 
 
  
