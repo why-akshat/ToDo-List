@@ -1,0 +1,211 @@
+<html>
+<head>
+  <!-- These links are form https://fontawesome.com/  -->
+  <script src="https://kit.fontawesome.com/e5e27784ca.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+    *{font-family:Arial, Helvetica, sans-serif;}
+    /* first form to add task details */
+    form{
+      margin-top: -50px;
+      margin-left: 10px;
+      color: white;
+      font-size: 16px;
+      position: relative;
+      height:  140px;
+    }
+    input[type="text"]{
+      width: 300px;
+    }
+   
+    
+    input[type="text"], input[type="date"], select, .b{
+      padding: 12px;
+      height: 45px;
+      outline: none;
+      border: none;
+      margin: 5px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .b{
+      border-radius: 10px;
+      text-align: center;
+      margin-right: 15px;
+      background-color:rgb(248, 62, 99);
+      width: 150px;
+      margin-left: 230px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .main{
+     display: flex;
+     height: 100%;
+     justify-content: center; 
+    }
+    .maincontainer{  
+      height: 100%;
+      width: max-content;
+      position: absolute;
+      border-radius: 15px;  
+    }
+
+    body{
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: steelblue;
+  }
+    .img{     /*Image + To-Do List*/
+      display: flex;
+      width: 100%;
+      height: 90px;
+      margin: 25px 30px;
+    }
+    #todo{
+      margin-top: 10px;
+      margin-left: 25px;
+      color:chartreuse;
+    }
+    img{
+      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+    }
+    .li{
+      background-color: white;
+      color: black;
+      border-radius: 12px;
+      padding: 13px;
+      width: 490px;
+      margin: 12px;
+    }
+    .tasks{
+      display: inline-block;
+      width: max-content;
+      display: flex;
+    }
+    .des{
+      font-size: 18px;
+    }
+    ::placeholder{
+      color: gray;
+      font-weight: bold;
+    }   
+    .content{
+      margin-left: 10px;
+      display: inline-block;
+    }
+    label{
+      color: rgb(98, 97, 97);
+    }
+    i{
+      color: gray;
+      margin-top: 3px;
+      margin-left: 10px;
+      margin-right: 5px;
+    }
+    #form1{
+      background-color: transparent;
+      height: 100%;
+    }
+    .checkbox-round {
+      width: 1.3em;
+      height: 1.3em;
+      background-color: white;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-top: -13px;
+      border: 1px solid #ddd;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .checkbox-round:checked {
+      background-color: rgb(14, 116, 225);
+    }
+    .qoute{
+      margin-left: 50px;
+      width: 310px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="maincontainer">
+      
+      <div class="img">
+        <!-- loge of web page -->
+        <img src="https://img.freepik.com/free-vector/online-document-form-digital-agreement-electronic-contract-internet-questionnaire-list-note-voting-ballot-poll-flat-design-element_335657-2667.jpg?w=740&t=st=1682786652~exp=1682787252~hmac=914b87e74cb38e6f207f5f9719ba78fc79c4726e19d3efc05a752c9e24c4f5b7" alt="Not Found">
+        <!-- title of page -->
+        <h1 id="todo">todo</h1> 
+        <!-- motivation qoute -->
+        <p class="qoute">If you want to get something done, make a list and take it one step at a time.</p>
+      </div>
+
+     <!-- This form helps to add task details into the DB.. -->
+      <form action="adddata" method="post" id="form">
+       
+        <!-- adds description to describe the task in simple words -->
+        <input type="text" name="description" id="description" placeholder="Add a new Task" required>
+       
+        <!-- select category of the task -->
+        <select name="category" id="category">
+        <option value="No label">choose a category</option>
+          <option value="Personal">Personal</option>
+          <option value="Work">Work</option>
+          <option value="School">School</option>
+          <option value="Cleaning">Cleaning</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <!-- add date  -->
+        <input type="date" name="date" id="date"> <br>
+        
+        <!-- add details into DB -->
+        <button class="b add" type="submit">Add Task</button>
+
+      </form >
+
+      <!-- This for help to retrieve the tasks from DB and display them in the form list 
+      and also allows us to delete them from DB... -->
+      <form action="delete-data" method="post" id="form1">
+        <div class="tasks">
+          <ul> 
+            <% for(let i of data) { %>
+              <div class="li"> 
+                <input type="checkbox" name="checkbox" value="<%= i._id %>" onchange="changetext(this)" class="checkbox-round">
+                <div class="content"><%= i.description %> <br> 
+                  <i class="fa-solid fa-tag fa-rotate-90"></i><label><%= i.category %></label> 
+                  <i class="fa-solid fa-calendar-days"></i><label><%= i.date %></label>
+                </div>
+              </div> 
+              <% } %>
+            </ul>
+          </div>
+          <!-- delete the one or more completed tasks -->
+          <button class="b delete" type="submit" >Delete Tasks</button>
+        </form>
+
+      </div>
+    </div> 
+  </body>
+
+  <script>
+    function changetext(elem){
+    console.log("Changetext");
+    if (elem.checked) {
+    elem.parentElement.querySelector('.content').style.textDecoration = "line-through";
+    }
+    else {
+    elem.parentElement.querySelector('.content').style.textDecoration = "none";
+    }
+    }
+    </script>
+
+  </html>
